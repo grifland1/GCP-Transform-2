@@ -33,7 +33,7 @@ def download_link(object_to_download, download_filename, download_link_text):
     return f'<a href="data:file/csv;base64,{b64}" download="{download_filename}">{download_link_text}</a>'
 
 def main():
-    st.title('2D Coordinate Transformation')
+    st.title('GCP Coordinate Transformation')
 
     # File upload
     field_points_file = st.file_uploader("Upload field points CSV", type='csv')
