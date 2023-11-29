@@ -10,9 +10,17 @@ def read_csv(uploaded_file):
     return pd.read_csv(uploaded_file, header=None, names=['P', 'N', 'E', 'Z', 'D'])
 
 def transform_points(params, points):
-    # Apply the transformation: rotation, scaling, translation
+    print("Transforming points with params:", params)
+    print("Points shape:", points.shape)
+    print("Points data:", points)
+
     angle, scale, tx, ty = params
     rotation = R.from_euler('z', angle, degrees=True)
+
+    # Check if points have correct shape
+    if points.shape[1] < 2:
+        raise ValueError("Points array must have at least 2 columns for X and Y coordinates.")
+
     rotated = rotation.apply(points[:, :2]) * scale
     translated = rotated + np.array([tx, ty])
     return np.hstack((translated, points[:, 2:]))
